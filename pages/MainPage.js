@@ -10,12 +10,20 @@ import {
 
 const main =
   "https://storage.googleapis.com/sparta-image.appspot.com/lecture/main.png";
+import data from "../data.json";
 import Card from "../components/Card";
 import Loading from "../components/Loading";
 import { StatusBar } from "expo-status-bar";
 import * as Location from "expo-location";
 import axios from "axios";
 import { firebase_db } from "../firebaseConfig";
+import {
+  setTestDeviceIDAsync,
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+} from "expo-ads-admob";
 
 export default function MainPage({ navigation, route }) {
   //useState 사용법
@@ -190,6 +198,25 @@ export default function MainPage({ navigation, route }) {
           return <Card content={content} key={i} navigation={navigation} />;
         })}
       </View>
+      {/* 
+        ca-app-pub-5579008343368676/9202552776
+        ca-app-pub-5579008343368676/6885179499
+      */}
+      {Platform.OS === "ios" ? (
+        <AdMobBanner
+          bannerSize="fullBanner"
+          servePersonalizedAds={true}
+          adUnitID="ca-app-pub-5106836293503444/3148461146"
+          style={styles.banner}
+        />
+      ) : (
+        <AdMobBanner
+          bannerSize="fullBanner"
+          servePersonalizedAds={true}
+          adUnitID="ca-app-pub-5106836293503444/2026951169"
+          style={styles.banner}
+        />
+      )}
     </ScrollView>
   );
 }
@@ -301,5 +328,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     marginTop: 10,
+  },
+  banner: {
+    width: "100%",
+    height: 100,
   },
 });
