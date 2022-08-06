@@ -16,6 +16,11 @@ export default function AboutPage({ navigation, route }) {
       headerTintColor: "#fff",
     });
   }, []);
+
+  const link = () => {
+    Linking.openURL("https://spartacodingclub.kr");
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
@@ -36,7 +41,9 @@ export default function AboutPage({ navigation, route }) {
           꼭 완주 하셔서 꼭 여러분것으로 만들어가시길 바랍니다
         </Text>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>여러분의 인스타계정</Text>
+          <Text style={styles.buttonText} onPress={() => link()}>
+            여러분의 인스타계정
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
