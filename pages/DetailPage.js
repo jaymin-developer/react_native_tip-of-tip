@@ -11,8 +11,17 @@ import {
   Platform,
 } from "react-native";
 import * as Linking from "expo-linking";
+import { StatusBar } from "expo-status-bar";
 import { firebase_db } from "../firebaseConfig";
 import * as Application from "expo-application";
+import {
+  setTestDeviceIDAsync,
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+} from "expo-ads-admob";
+
 const isIOS = Platform.OS === "ios";
 
 export default function DetailPage({ navigation, route }) {
@@ -84,6 +93,7 @@ export default function DetailPage({ navigation, route }) {
     // 화면에 넣은 컨텐츠를 모두 보여주려 스크롤 기능이 존재하기 때문입니다.
     // 여기선 내부의 컨텐츠들 영역을 결정짓기 위해서 height 값과 margin,padding 값을 적절히 잘 이용해야 합니다.
     <ScrollView style={styles.container}>
+      <StatusBar style="light" />
       <Image style={styles.image} source={{ uri: tip.image }} />
       <View style={styles.textContainer}>
         <Text style={styles.title}>{tip.title}</Text>
@@ -99,6 +109,21 @@ export default function DetailPage({ navigation, route }) {
             <Text style={styles.buttonText}>외부 링크</Text>
           </TouchableOpacity>
         </View>
+        {Platform.OS === "ios" ? (
+          <AdMobBanner
+            bannerSize="fullBanner"
+            servePersonalizedAds={true}
+            adUnitID="ca-app-pub-5106836293503444/3148461146"
+            style={styles.banner}
+          />
+        ) : (
+          <AdMobBanner
+            bannerSize="fullBanner"
+            servePersonalizedAds={true}
+            adUnitID="ca-app-pub-5106836293503444/2026951169"
+            style={styles.banner}
+          />
+        )}
       </View>
     </ScrollView>
   );
@@ -144,5 +169,10 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     textAlign: "center",
+  },
+
+  banner: {
+    width: "100%",
+    marginTop: 50,
   },
 });
