@@ -13,6 +13,7 @@ const main =
 import Card from "../components/Card";
 import Loading from "../components/Loading";
 import { firebase_db } from "../firebaseConfig";
+
 export default function MainPage({ navigation, route }) {
   //useState 사용법
   //[state,setState] 에서 state는 이 컴포넌트에서 관리될 상태 데이터를 담고 있는 변수
